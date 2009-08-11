@@ -54,7 +54,7 @@ module Elctech
                   COUNT(*) AS activity_count,
                   ((((YEAR(now()) - YEAR(#{activity_options[:by]}))*365)+(DAYOFYEAR(now())-DAYOFYEAR(#{activity_options[:by]})))*24)+(HOUR(now())-HOUR(#{activity_options[:by]})) as hours_ago,
                   CONCAT(YEAR(#{activity_options[:by]}), CONCAT(DAYOFYEAR(#{activity_options[:by]}), HOUR(#{activity_options[:by]}))) AS unique_hour
-                FROM feeds
+                FROM #{self.table_name}
                 WHERE #{activity_scope} AND #{activity_options[:by]} > ?
                 GROUP BY unique_hour
                 ORDER BY #{activity_options[:by]} ASC",
